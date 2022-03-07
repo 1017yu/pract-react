@@ -32,21 +32,35 @@
 
       const App = () => {
         function handleChange(event) {
-          setState({ keyword: event.target.value });
+          setState({ typing: true, keyword: event.target.value });
+        }
+
+        function handleClick() {
+          setState({
+            typing: false,
+            result: ` We find results of ${state.keyword} `,
+          });
         }
         return (
           <>
             <input onChange={handleChange} />
-            <button>Search</button>
-            <p>Looking For...</p>
+            <button onClick={handleClick}>Search</button>
+            <p>
+              {state.typing ? `Looking For... ${state.keyword}` : state.result}
+            </p>
           </>
         );
       };
+      function render() {
+        ReactDOM.render(<App />, rootElement);
+      }
 
       function setState(newState) {
-        Object.assign(state, newState);
+        Object.assign(state, newState); // state 객체에 newState 객체를 복사하여 바뀌지 않는 부분은 유지
+        render();
       }
-      ReactDOM.render(<App />, rootElement);
+
+      render();
     </script>
   </body>
 </html>
