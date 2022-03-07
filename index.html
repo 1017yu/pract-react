@@ -12,7 +12,7 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <div id="root"></div>
     <script type="text/babel">
-      // const rootElement = document.getElementById("root");
+      //   const rootElement = document.getElementById("root");
       //   const text = "Hello World!";
       //   const titleClassName = "title1"
 
@@ -26,41 +26,70 @@
 
       //   ReactDOM.render(element, rootElement);
 
+      // const rootElement = document.getElementById("root");
+
+      // const state = { keyword: "", typing: false, result: "" };
+
+      // const App = () => {
+      //   function handleChange(event) {
+      //     setState({ typing: true, keyword: event.target.value });
+      //   }
+
+      //   function handleClick() {
+      //     setState({
+      //       typing: false,
+      //       result: ` We find results of ${state.keyword} `,
+      //     });
+      //   }
+      //   return (
+      //     <>
+      //       <input onChange={handleChange} />
+      //       <button onClick={handleClick}>Search</button>
+      //       <p>
+      //         {state.typing ? `Looking For... ${state.keyword}` : state.result}
+      //       </p>
+      //     </>
+      //   );
+      // };
+
+      // function render() {
+      //   ReactDOM.render(<App />, rootElement);
+      // }
+
+      // function setState(newState) {
+      //   Object.assign(state, newState); // state 객체에 newState 객체를 복사하여 바뀌지 않는 부분은 유지
+      //   render();
+      // }
+
+      // render();
+
       const rootElement = document.getElementById("root");
 
-      const state = { keyword: "", typing: false, result: "" };
-
       const App = () => {
+        const [keyword, setKeyword] = React.useState("");
+        const [result, setResult] = React.useState("");
+        const [typing, setTyping] = React.useState(false);
+
         function handleChange(event) {
-          setState({ typing: true, keyword: event.target.value });
+          setKeyword(event.target.value);
+          setTyping(true);
         }
 
         function handleClick() {
-          setState({
-            typing: false,
-            result: ` We find results of ${state.keyword} `,
-          });
+          setTyping(false);
+          setResult(`We find results of ${keyword}`);
         }
+
         return (
           <>
             <input onChange={handleChange} />
-            <button onClick={handleClick}>Search</button>
-            <p>
-              {state.typing ? `Looking For... ${state.keyword}` : state.result}
-            </p>
+            <button onClick={handleClick}> search </button>
+            <p> {typing ? `Looking for ${keyword}...` : result} </p>
           </>
         );
       };
-      function render() {
-        ReactDOM.render(<App />, rootElement);
-      }
 
-      function setState(newState) {
-        Object.assign(state, newState); // state 객체에 newState 객체를 복사하여 바뀌지 않는 부분은 유지
-        render();
-      }
-
-      render();
+      ReactDOM.render(<App />, rootElement);
     </script>
   </body>
 </html>
